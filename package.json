@@ -1,0 +1,25 @@
+{
+  "name": "heatmap",
+  "version": "0.0.0",
+  "description": "A heatmap library build with canvas",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mickmetalholic/heatmap.git"
+  },
+  "keywords": [
+    "heatmap"
+  ],
+  "author": "yuanshenmick@gmail.com",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/mickmetalholic/heatmap/issues"
+  },
+  "homepage": "https://github.com/mickmetalholic/heatmap#readme",
+  "devDependencies": {
+    "rollup": "^0.62.0"
+  }
+}
