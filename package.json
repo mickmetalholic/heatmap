@@ -1,6 +1,6 @@
 {
   "name": "heatmap",
-  "version": "0.0.1",
+  "version": "0.0.0",
   "description": "A heatmap library build with canvas",
   "main": "index.js",
   "scripts": {
