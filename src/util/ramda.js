@@ -1,2 +1,13 @@
-import { identity } from 'ramda';
-export { identity };
+import {
+  identity,
+  forEach,
+  compose,
+  curry
+} from 'ramda';
+
+export {
+  identity,
+  forEach,
+  compose,
+  curry
+};

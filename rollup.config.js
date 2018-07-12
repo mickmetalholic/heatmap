@@ -6,6 +6,7 @@ import json from 'rollup-plugin-json';
 
 // TODO: add es and cjs format
 // TODO: add production configuration
+// TODO: dev server
 export default {
   input: './index.js',
   output: {
@@ -27,5 +28,6 @@ export default {
     ramda(),
     babel()
   ],
-  treeshake: true
+  treeshake: true,
+  sourceMap: true
 };
