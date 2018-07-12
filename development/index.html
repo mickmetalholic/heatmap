@@ -14,6 +14,16 @@
     const hm = new heatmap.Heatmap();
     console.log(heatmap.version);
     
+    hm.setData([
+      { x: 10, y: 20, value: 10},
+      { x: 10, y: 10, value: 10},
+      { x: 5, y: 20, value: 10},
+      { x: 10, y: 5, value: 10},
+      { x: 20, y: 10, value: 10}
+    ]);
+
+    hm.render();
+
   </script>
 </body>
 </html>
