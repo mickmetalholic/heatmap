@@ -675,7 +675,7 @@
         var gradientColorData = getGradientColorData(this.config.color);
         // 2. draw transparent circles
 
-        // 3. colorize acording to alpha value
+        // 3. colorize according to alpha value
       }
     }]);
 
