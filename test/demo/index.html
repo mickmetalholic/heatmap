@@ -9,19 +9,19 @@
 <body>
   <canvas id="heatmap" width=300 height=300></canvas>
 
-  <script src="../dist/heatmap.js"></script>
+  <script src="../../dist/heatmap.js"></script>
   <script>
     const hm = new heatmap.Heatmap({
       canvas: document.getElementById('heatmap')
     });
     console.log(heatmap.version);
-    
+
     hm.setData([
-      { x: 10, y: 20, value: 10},
-      { x: 10, y: 10, value: 10},
-      { x: 5, y: 20, value: 10},
-      { x: 10, y: 5, value: 10},
-      { x: 20, y: 10, value: 10}
+      { x: 10, y: 200, value: 10},
+      { x: 100, y: 10, value: 10},
+      { x: 50, y: 20, value: 10},
+      { x: 120, y: 80, value: 10},
+      { x: 180, y: 90, value: 10}
     ]);
 
     hm.render();

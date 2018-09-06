@@ -630,26 +630,104 @@
   }
   var compose_1 = compose;
 
+  /**
+   * Retrieve the value at a given path.
+   *
+   * @func
+   * @memberOf R
+   * @since v0.2.0
+   * @category Object
+   * @typedefn Idx = String | Int
+   * @sig [Idx] -> {a} -> a | Undefined
+   * @param {Array} path The path to use.
+   * @param {Object} obj The object to retrieve the nested property from.
+   * @return {*} The data at `path`.
+   * @see R.prop
+   * @example
+   *
+   *      R.path(['a', 'b'], {a: {b: 2}}); //=> 2
+   *      R.path(['a', 'b'], {c: {b: 2}}); //=> undefined
+   */
+
+  var path = /*#__PURE__*/_curry2_1(function path(paths, obj) {
+    var val = obj;
+    var idx = 0;
+    while (idx < paths.length) {
+      if (val == null) {
+        return;
+      }
+      val = val[paths[idx]];
+      idx += 1;
+    }
+    return val;
+  });
+  var path_1 = path;
+
+  /**
+   * Returns a function that when supplied an object returns the indicated
+   * property of that object, if it exists.
+   *
+   * @func
+   * @memberOf R
+   * @since v0.1.0
+   * @category Object
+   * @sig s -> {s: a} -> a | Undefined
+   * @param {String} p The property name
+   * @param {Object} obj The object to query
+   * @return {*} The value at `obj.p`.
+   * @see R.path
+   * @example
+   *
+   *      R.prop('x', {x: 100}); //=> 100
+   *      R.prop('x', {}); //=> undefined
+   */
+
+  var prop = /*#__PURE__*/_curry2_1(function prop(p, obj) {
+    return path_1([p], obj);
+  });
+  var prop_1 = prop;
+
+  function addColor(gradient) {
+    return function (color) {
+      return gradient.addColorStop(prop_1('stop', color), prop_1('color', color));
+    };
+  }
+
+  var addColors = compose_1(forEach_1, addColor);
+
+  // Array -> Array
   var getGradientColorData = function getGradientColorData(colors) {
     var canvas = document.createElement('canvas');
     var ctx = canvas.getContext('2d');
-
     var gradient = ctx.createLinearGradient(0, 0, 0, 255);
 
-    _addColors(gradient)(colors);
+    addColors(gradient)(colors);
 
     ctx.fillStyle = gradient;
     ctx.fillRect(0, 0, 1, 255);
     return ctx.getImageData(0, 0, 1, 255).data;
   };
 
-  var _addColor = function _addColor(gradient) {
-    return function (color) {
-      return gradient.addColorStop(color.stop, color.color);
-    };
-  };
+  function getCircleImg(_ref) {
+    var x = _ref.x,
+        y = _ref.y,
+        r = _ref.r;
 
-  var _addColors = compose_1(forEach_1, _addColor);
+    var circleCanvas = document.createElement('canvas');
+    var ctx = circleCanvas.getContext('2d');
+    circleCanvas.width = r * 2;
+    circleCanvas.height = r * 2;
+
+    var gradient = ctx.createRadialGradient(r, r, 0, r, r, r);
+    gradient.addColorStop(0, 'rgba(0, 0, 0, 1)');
+    gradient.addColorStop(1, 'rgba(0, 0, 0, 0)');
+    ctx.beginPath();
+    ctx.arc(r, r, r, 0, 2 * Math.PI);
+    ctx.fillStyle = gradient;
+    ctx.fill();
+
+    return circleCanvas;
+  }
 
   var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
@@ -674,6 +752,14 @@
         // 1. generate gradient color palette
         var gradientColorData = getGradientColorData(this.config.color);
         // 2. draw transparent circles
+
+        var data = this.data,
+            ctx = this.ctx;
+
+        data.forEach(function (datum) {
+          var circleImg = getCircleImg({ r: 15 });
+          ctx.drawImage(circleImg, datum.x, datum.y);
+        });
 
         // 3. colorize according to alpha value
       }
