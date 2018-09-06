@@ -4,6 +4,7 @@ import {
   compose,
   curry,
   prop,
+  flatten,
 } from 'ramda';
 
 export {
@@ -12,4 +13,5 @@ export {
   compose,
   curry,
   prop,
+  flatten,
 };
