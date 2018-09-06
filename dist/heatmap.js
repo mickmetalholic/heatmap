@@ -11,212 +11,14 @@
     // color
     color: [{ stop: 1,
       color: '#F00'
-    }, { stop: 0.5,
-      color: '#FF0'
+    }, { stop: 0.75,
+      color: 'yellow'
+    }, { stop: 0.55,
+      color: '#0F0'
     }, { stop: 0,
       color: '#00F'
     }]
   };
-
-  var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
-
-  function _isPlaceholder(a) {
-         return a != null && (typeof a === 'undefined' ? 'undefined' : _typeof(a)) === 'object' && a['@@functional/placeholder'] === true;
-  }
-  var _isPlaceholder_1 = _isPlaceholder;
-
-  /**
-   * Optimized internal one-arity curry function.
-   *
-   * @private
-   * @category Function
-   * @param {Function} fn The function to curry.
-   * @return {Function} The curried function.
-   */
-
-  function _curry1(fn) {
-    return function f1(a) {
-      if (arguments.length === 0 || _isPlaceholder_1(a)) {
-        return f1;
-      } else {
-        return fn.apply(this, arguments);
-      }
-    };
-  }
-  var _curry1_1 = _curry1;
-
-  /**
-   * Tests whether or not an object is an array.
-   *
-   * @private
-   * @param {*} val The object to test.
-   * @return {Boolean} `true` if `val` is an array, `false` otherwise.
-   * @example
-   *
-   *      _isArray([]); //=> true
-   *      _isArray(null); //=> false
-   *      _isArray({}); //=> false
-   */
-  var _isArray = Array.isArray || function _isArray(val) {
-    return val != null && val.length >= 0 && Object.prototype.toString.call(val) === '[object Array]';
-  };
-
-  /**
-   * This checks whether a function has a [methodname] function. If it isn't an
-   * array it will execute that function otherwise it will default to the ramda
-   * implementation.
-   *
-   * @private
-   * @param {Function} fn ramda implemtation
-   * @param {String} methodname property to check for a custom implementation
-   * @return {Object} Whatever the return value of the method is.
-   */
-
-  function _checkForMethod(methodname, fn) {
-    return function () {
-      var length = arguments.length;
-      if (length === 0) {
-        return fn();
-      }
-      var obj = arguments[length - 1];
-      return _isArray(obj) || typeof obj[methodname] !== 'function' ? fn.apply(this, arguments) : obj[methodname].apply(obj, Array.prototype.slice.call(arguments, 0, length - 1));
-    };
-  }
-  var _checkForMethod_1 = _checkForMethod;
-
-  /**
-   * Optimized internal two-arity curry function.
-   *
-   * @private
-   * @category Function
-   * @param {Function} fn The function to curry.
-   * @return {Function} The curried function.
-   */
-
-  function _curry2(fn) {
-    return function f2(a, b) {
-      switch (arguments.length) {
-        case 0:
-          return f2;
-        case 1:
-          return _isPlaceholder_1(a) ? f2 : _curry1_1(function (_b) {
-            return fn(a, _b);
-          });
-        default:
-          return _isPlaceholder_1(a) && _isPlaceholder_1(b) ? f2 : _isPlaceholder_1(a) ? _curry1_1(function (_a) {
-            return fn(_a, b);
-          }) : _isPlaceholder_1(b) ? _curry1_1(function (_b) {
-            return fn(a, _b);
-          }) : fn(a, b);
-      }
-    };
-  }
-  var _curry2_1 = _curry2;
-
-  /**
-   * Optimized internal three-arity curry function.
-   *
-   * @private
-   * @category Function
-   * @param {Function} fn The function to curry.
-   * @return {Function} The curried function.
-   */
-
-  function _curry3(fn) {
-    return function f3(a, b, c) {
-      switch (arguments.length) {
-        case 0:
-          return f3;
-        case 1:
-          return _isPlaceholder_1(a) ? f3 : _curry2_1(function (_b, _c) {
-            return fn(a, _b, _c);
-          });
-        case 2:
-          return _isPlaceholder_1(a) && _isPlaceholder_1(b) ? f3 : _isPlaceholder_1(a) ? _curry2_1(function (_a, _c) {
-            return fn(_a, b, _c);
-          }) : _isPlaceholder_1(b) ? _curry2_1(function (_b, _c) {
-            return fn(a, _b, _c);
-          }) : _curry1_1(function (_c) {
-            return fn(a, b, _c);
-          });
-        default:
-          return _isPlaceholder_1(a) && _isPlaceholder_1(b) && _isPlaceholder_1(c) ? f3 : _isPlaceholder_1(a) && _isPlaceholder_1(b) ? _curry2_1(function (_a, _b) {
-            return fn(_a, _b, c);
-          }) : _isPlaceholder_1(a) && _isPlaceholder_1(c) ? _curry2_1(function (_a, _c) {
-            return fn(_a, b, _c);
-          }) : _isPlaceholder_1(b) && _isPlaceholder_1(c) ? _curry2_1(function (_b, _c) {
-            return fn(a, _b, _c);
-          }) : _isPlaceholder_1(a) ? _curry1_1(function (_a) {
-            return fn(_a, b, c);
-          }) : _isPlaceholder_1(b) ? _curry1_1(function (_b) {
-            return fn(a, _b, c);
-          }) : _isPlaceholder_1(c) ? _curry1_1(function (_c) {
-            return fn(a, b, _c);
-          }) : fn(a, b, c);
-      }
-    };
-  }
-  var _curry3_1 = _curry3;
-
-  /**
-   * Returns the elements of the given list or string (or object with a `slice`
-   * method) from `fromIndex` (inclusive) to `toIndex` (exclusive).
-   *
-   * Dispatches to the `slice` method of the third argument, if present.
-   *
-   * @func
-   * @memberOf R
-   * @since v0.1.4
-   * @category List
-   * @sig Number -> Number -> [a] -> [a]
-   * @sig Number -> Number -> String -> String
-   * @param {Number} fromIndex The start index (inclusive).
-   * @param {Number} toIndex The end index (exclusive).
-   * @param {*} list
-   * @return {*}
-   * @example
-   *
-   *      R.slice(1, 3, ['a', 'b', 'c', 'd']);        //=> ['b', 'c']
-   *      R.slice(1, Infinity, ['a', 'b', 'c', 'd']); //=> ['b', 'c', 'd']
-   *      R.slice(0, -1, ['a', 'b', 'c', 'd']);       //=> ['a', 'b', 'c']
-   *      R.slice(-3, -1, ['a', 'b', 'c', 'd']);      //=> ['b', 'c']
-   *      R.slice(0, 3, 'ramda');                     //=> 'ram'
-   */
-
-  var slice = /*#__PURE__*/_curry3_1( /*#__PURE__*/_checkForMethod_1('slice', function slice(fromIndex, toIndex, list) {
-    return Array.prototype.slice.call(list, fromIndex, toIndex);
-  }));
-  var slice_1 = slice;
-
-  /**
-   * Returns all but the first element of the given list or string (or object
-   * with a `tail` method).
-   *
-   * Dispatches to the `slice` method of the first argument, if present.
-   *
-   * @func
-   * @memberOf R
-   * @since v0.1.0
-   * @category List
-   * @sig [a] -> [a]
-   * @sig String -> String
-   * @param {*} list
-   * @return {*}
-   * @see R.head, R.init, R.last
-   * @example
-   *
-   *      R.tail([1, 2, 3]);  //=> [2, 3]
-   *      R.tail([1, 2]);     //=> [2]
-   *      R.tail([1]);        //=> []
-   *      R.tail([]);         //=> []
-   *
-   *      R.tail('abc');  //=> 'bc'
-   *      R.tail('ab');   //=> 'b'
-   *      R.tail('a');    //=> ''
-   *      R.tail('');     //=> ''
-   */
-
-  var tail = /*#__PURE__*/_curry1_1( /*#__PURE__*/_checkForMethod_1('tail', /*#__PURE__*/slice_1(1, Infinity)));
 
   function ascending (a, b) {
     return a < b ? -1 : a > b ? 1 : a >= b ? 0 : NaN;
@@ -440,7 +242,7 @@
   var array$1 = Array.prototype;
 
   var map$2 = array$1.map;
-  var slice$2 = array$1.slice;
+  var slice$1 = array$1.slice;
 
   function define (constructor, factory, prototype) {
     constructor.prototype = factory.prototype = prototype;
@@ -1010,21 +812,21 @@
     };
   }
 
-  function number$1 (a, b) {
+  function reinterpolate (a, b) {
     return a = +a, b -= a, function (t) {
       return a + b * t;
     };
   }
 
-  var _typeof$2 = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+  var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
   function object (a, b) {
     var i = {},
         c = {},
         k;
 
-    if (a === null || (typeof a === "undefined" ? "undefined" : _typeof$2(a)) !== "object") a = {};
-    if (b === null || (typeof b === "undefined" ? "undefined" : _typeof$2(b)) !== "object") b = {};
+    if (a === null || (typeof a === "undefined" ? "undefined" : _typeof(a)) !== "object") a = {};
+    if (b === null || (typeof b === "undefined" ? "undefined" : _typeof(b)) !== "object") b = {};
 
     for (k in b) {
       if (k in a) {
@@ -1089,7 +891,7 @@
       } else {
         // interpolate non-matching numbers
         s[++i] = null;
-        q.push({ i: i, x: number$1(am, bm) });
+        q.push({ i: i, x: reinterpolate(am, bm) });
       }
       bi = reB.lastIndex;
     }
@@ -1110,12 +912,12 @@
     });
   }
 
-  var _typeof$3 = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+  var _typeof$1 = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
   function value (a, b) {
-      var t = typeof b === "undefined" ? "undefined" : _typeof$3(b),
+      var t = typeof b === "undefined" ? "undefined" : _typeof$1(b),
           c;
-      return b == null || t === "boolean" ? constant$1(b) : (t === "number" ? number$1 : t === "string" ? (c = color(b)) ? (b = c, rgb$1) : string : b instanceof color ? rgb$1 : b instanceof Date ? date : Array.isArray(b) ? array$2 : typeof b.valueOf !== "function" && typeof b.toString !== "function" || isNaN(b) ? object : number$1)(a, b);
+      return b == null || t === "boolean" ? constant$1(b) : (t === "number" ? reinterpolate : t === "string" ? (c = color(b)) ? (b = c, rgb$1) : string : b instanceof color ? rgb$1 : b instanceof Date ? date : Array.isArray(b) ? array$2 : typeof b.valueOf !== "function" && typeof b.toString !== "function" || isNaN(b) ? object : reinterpolate)(a, b);
   }
 
   function interpolateRound (a, b) {
@@ -1134,7 +936,7 @@
     };
   }
 
-  function number$2 (x) {
+  function number$1 (x) {
     return +x;
   }
 
@@ -1155,27 +957,27 @@
     };
   }
 
-  function reinterpolateClamp(reinterpolate) {
+  function reinterpolateClamp(reinterpolate$$1) {
     return function (a, b) {
-      var r = reinterpolate(a = +a, b = +b);
+      var r = reinterpolate$$1(a = +a, b = +b);
       return function (t) {
         return t <= 0 ? a : t >= 1 ? b : r(t);
       };
     };
   }
 
-  function bimap(domain, range$$1, deinterpolate, reinterpolate) {
+  function bimap(domain, range$$1, deinterpolate, reinterpolate$$1) {
     var d0 = domain[0],
         d1 = domain[1],
         r0 = range$$1[0],
         r1 = range$$1[1];
-    if (d1 < d0) d0 = deinterpolate(d1, d0), r0 = reinterpolate(r1, r0);else d0 = deinterpolate(d0, d1), r0 = reinterpolate(r0, r1);
+    if (d1 < d0) d0 = deinterpolate(d1, d0), r0 = reinterpolate$$1(r1, r0);else d0 = deinterpolate(d0, d1), r0 = reinterpolate$$1(r0, r1);
     return function (x) {
       return r0(d0(x));
     };
   }
 
-  function polymap(domain, range$$1, deinterpolate, reinterpolate) {
+  function polymap(domain, range$$1, deinterpolate, reinterpolate$$1) {
     var j = Math.min(domain.length, range$$1.length) - 1,
         d = new Array(j),
         r = new Array(j),
@@ -1189,7 +991,7 @@
 
     while (++i < j) {
       d[i] = deinterpolate(domain[i], domain[i + 1]);
-      r[i] = reinterpolate(range$$1[i], range$$1[i + 1]);
+      r[i] = reinterpolate$$1(range$$1[i], range$$1[i + 1]);
     }
 
     return function (x) {
@@ -1204,7 +1006,7 @@
 
   // deinterpolate(a, b)(x) takes a domain value x in [a,b] and returns the corresponding parameter t in [0,1].
   // reinterpolate(a, b)(t) takes a parameter t in [0,1] and returns the corresponding domain value x in [a,b].
-  function continuous(deinterpolate, reinterpolate) {
+  function continuous(deinterpolate, reinterpolate$$1) {
     var domain = unit,
         range$$1 = unit,
         interpolate$$1 = value,
@@ -1224,19 +1026,19 @@
     }
 
     scale.invert = function (y) {
-      return (input || (input = piecewise$$1(range$$1, domain, deinterpolateLinear, clamp ? reinterpolateClamp(reinterpolate) : reinterpolate)))(+y);
+      return (input || (input = piecewise$$1(range$$1, domain, deinterpolateLinear, clamp ? reinterpolateClamp(reinterpolate$$1) : reinterpolate$$1)))(+y);
     };
 
     scale.domain = function (_) {
-      return arguments.length ? (domain = map$2.call(_, number$2), rescale()) : domain.slice();
+      return arguments.length ? (domain = map$2.call(_, number$1), rescale()) : domain.slice();
     };
 
     scale.range = function (_) {
-      return arguments.length ? (range$$1 = slice$2.call(_), rescale()) : range$$1.slice();
+      return arguments.length ? (range$$1 = slice$1.call(_), rescale()) : range$$1.slice();
     };
 
     scale.rangeRound = function (_) {
-      return range$$1 = slice$2.call(_), interpolate$$1 = interpolateRound, rescale();
+      return range$$1 = slice$1.call(_), interpolate$$1 = interpolateRound, rescale();
     };
 
     scale.clamp = function (_) {
@@ -1397,17 +1199,17 @@
     }
   };
 
-  function identity$3 (x) {
+  function identity$2 (x) {
     return x;
   }
 
   var prefixes = ["y", "z", "a", "f", "p", "n", "µ", "m", "", "k", "M", "G", "T", "P", "E", "Z", "Y"];
 
   function formatLocale (locale) {
-    var group = locale.grouping && locale.thousands ? formatGroup(locale.grouping, locale.thousands) : identity$3,
+    var group = locale.grouping && locale.thousands ? formatGroup(locale.grouping, locale.thousands) : identity$2,
         currency = locale.currency,
         decimal = locale.decimal,
-        numerals = locale.numerals ? formatNumerals(locale.numerals) : identity$3,
+        numerals = locale.numerals ? formatNumerals(locale.numerals) : identity$2,
         percent = locale.percent || "%";
 
     function newFormat(specifier) {
@@ -1658,7 +1460,7 @@
   }
 
   function linear$1() {
-    var scale = continuous(deinterpolateLinear, number$1);
+    var scale = continuous(deinterpolateLinear, reinterpolate);
 
     scale.copy = function () {
       return copy(scale, linear$1());
@@ -2639,26 +2441,6 @@
 
   var parseIso = +new Date("2000-01-01T00:00:00.000Z") ? parseIsoNative : utcParse(isoSpecifier);
 
-  // function addColor(gradient) {
-  //   return color => gradient.addColorStop(prop('stop', color), prop('color', color));
-  // }
-
-  // const addColors = compose(forEach, addColor);
-
-  // // Array -> Array
-  // export const getGradientColorData = colors => {
-  //   const canvas = document.createElement('canvas');
-  //   const ctx = canvas.getContext('2d');
-  //   const gradient = ctx.createLinearGradient(0, 0, 0, 255);
-
-  //   addColors(gradient)(colors);
-
-  //   ctx.fillStyle = gradient;
-  //   ctx.fillRect(0, 0, 1, 255);
-  //   const { data } = ctx.getImageData(0, 0, 1, 255);
-  //   return chunk(data, 4);
-  // };
-
   function getGradientColorScale(colors) {
     var domain = colors.map(function (color) {
       return color.stop;
@@ -2745,8 +2527,8 @@
             return;
           }
           var color = gradientColorScale(e / 255);
+          // FIXME: get rid of regexp
 
-          // arr[i] = 255;
           var _color$match = color.match(/rgb\((\d+)\,\s?(\d+)\,\s?(\d+)\)/);
 
           var _color$match2 = _slicedToArray(_color$match, 4);
