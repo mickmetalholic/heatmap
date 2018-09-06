@@ -1,6 +1,5 @@
 import resolve from 'rollup-plugin-node-resolve';
 import commonjs from 'rollup-plugin-commonjs';
-import ramda from 'rollup-plugin-ramda';
 import babel from 'rollup-plugin-babel';
 import json from 'rollup-plugin-json';
 
@@ -25,7 +24,6 @@ export default {
     commonjs({
       include: 'node_modules/**'
     }),
-    ramda(),
     babel()
   ],
   treeshake: true,

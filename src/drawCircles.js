@@ -1,16 +1,8 @@
-function getCircleImg(data) {
-  const r = 15;
-  const circleCanvas = document.createElement('canvas');
-  const ctx = circleCanvas.getContext('2d');
-  circleCanvas.width = 300;
-  circleCanvas.height = 300;
-
-  const circleTpl = drawCircle(15);
+function getCircleImg(ctx, data) {
+  const circleTpl = drawCircle(20);
   data.forEach(datum => {
     ctx.drawImage(circleTpl, datum.x, datum.y);
   });
-
-  return circleCanvas;
 }
 
 function drawCircle(r) {

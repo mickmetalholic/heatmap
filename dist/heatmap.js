@@ -812,7 +812,7 @@
     };
   }
 
-  function reinterpolate (a, b) {
+  function number$1 (a, b) {
     return a = +a, b -= a, function (t) {
       return a + b * t;
     };
@@ -891,7 +891,7 @@
       } else {
         // interpolate non-matching numbers
         s[++i] = null;
-        q.push({ i: i, x: reinterpolate(am, bm) });
+        q.push({ i: i, x: number$1(am, bm) });
       }
       bi = reB.lastIndex;
     }
@@ -917,7 +917,7 @@
   function value (a, b) {
       var t = typeof b === "undefined" ? "undefined" : _typeof$1(b),
           c;
-      return b == null || t === "boolean" ? constant$1(b) : (t === "number" ? reinterpolate : t === "string" ? (c = color(b)) ? (b = c, rgb$1) : string : b instanceof color ? rgb$1 : b instanceof Date ? date : Array.isArray(b) ? array$2 : typeof b.valueOf !== "function" && typeof b.toString !== "function" || isNaN(b) ? object : reinterpolate)(a, b);
+      return b == null || t === "boolean" ? constant$1(b) : (t === "number" ? number$1 : t === "string" ? (c = color(b)) ? (b = c, rgb$1) : string : b instanceof color ? rgb$1 : b instanceof Date ? date : Array.isArray(b) ? array$2 : typeof b.valueOf !== "function" && typeof b.toString !== "function" || isNaN(b) ? object : number$1)(a, b);
   }
 
   function interpolateRound (a, b) {
@@ -936,7 +936,7 @@
     };
   }
 
-  function number$1 (x) {
+  function number$2 (x) {
     return +x;
   }
 
@@ -957,27 +957,27 @@
     };
   }
 
-  function reinterpolateClamp(reinterpolate$$1) {
+  function reinterpolateClamp(reinterpolate) {
     return function (a, b) {
-      var r = reinterpolate$$1(a = +a, b = +b);
+      var r = reinterpolate(a = +a, b = +b);
       return function (t) {
         return t <= 0 ? a : t >= 1 ? b : r(t);
       };
     };
   }
 
-  function bimap(domain, range$$1, deinterpolate, reinterpolate$$1) {
+  function bimap(domain, range$$1, deinterpolate, reinterpolate) {
     var d0 = domain[0],
         d1 = domain[1],
         r0 = range$$1[0],
         r1 = range$$1[1];
-    if (d1 < d0) d0 = deinterpolate(d1, d0), r0 = reinterpolate$$1(r1, r0);else d0 = deinterpolate(d0, d1), r0 = reinterpolate$$1(r0, r1);
+    if (d1 < d0) d0 = deinterpolate(d1, d0), r0 = reinterpolate(r1, r0);else d0 = deinterpolate(d0, d1), r0 = reinterpolate(r0, r1);
     return function (x) {
       return r0(d0(x));
     };
   }
 
-  function polymap(domain, range$$1, deinterpolate, reinterpolate$$1) {
+  function polymap(domain, range$$1, deinterpolate, reinterpolate) {
     var j = Math.min(domain.length, range$$1.length) - 1,
         d = new Array(j),
         r = new Array(j),
@@ -991,7 +991,7 @@
 
     while (++i < j) {
       d[i] = deinterpolate(domain[i], domain[i + 1]);
-      r[i] = reinterpolate$$1(range$$1[i], range$$1[i + 1]);
+      r[i] = reinterpolate(range$$1[i], range$$1[i + 1]);
     }
 
     return function (x) {
@@ -1006,7 +1006,7 @@
 
   // deinterpolate(a, b)(x) takes a domain value x in [a,b] and returns the corresponding parameter t in [0,1].
   // reinterpolate(a, b)(t) takes a parameter t in [0,1] and returns the corresponding domain value x in [a,b].
-  function continuous(deinterpolate, reinterpolate$$1) {
+  function continuous(deinterpolate, reinterpolate) {
     var domain = unit,
         range$$1 = unit,
         interpolate$$1 = value,
@@ -1026,11 +1026,11 @@
     }
 
     scale.invert = function (y) {
-      return (input || (input = piecewise$$1(range$$1, domain, deinterpolateLinear, clamp ? reinterpolateClamp(reinterpolate$$1) : reinterpolate$$1)))(+y);
+      return (input || (input = piecewise$$1(range$$1, domain, deinterpolateLinear, clamp ? reinterpolateClamp(reinterpolate) : reinterpolate)))(+y);
     };
 
     scale.domain = function (_) {
-      return arguments.length ? (domain = map$2.call(_, number$1), rescale()) : domain.slice();
+      return arguments.length ? (domain = map$2.call(_, number$2), rescale()) : domain.slice();
     };
 
     scale.range = function (_) {
@@ -1460,7 +1460,7 @@
   }
 
   function linear$1() {
-    var scale = continuous(deinterpolateLinear, reinterpolate);
+    var scale = continuous(deinterpolateLinear, number$1);
 
     scale.copy = function () {
       return copy(scale, linear$1());
@@ -2451,18 +2451,11 @@
     return linear$1().domain(domain).range(range);
   }
 
-  function getCircleImg(data) {
-    var circleCanvas = document.createElement('canvas');
-    var ctx = circleCanvas.getContext('2d');
-    circleCanvas.width = 300;
-    circleCanvas.height = 300;
-
-    var circleTpl = drawCircle(15);
+  function getCircleImg(ctx, data) {
+    var circleTpl = drawCircle(20);
     data.forEach(function (datum) {
       ctx.drawImage(circleTpl, datum.x, datum.y);
     });
-
-    return circleCanvas;
   }
 
   function drawCircle(r) {
@@ -2505,22 +2498,23 @@
     }, {
       key: 'render',
       value: function render() {
-        // 1. generate gradient color palette
-        this.gradientColorScale = getGradientColorScale(this.config.color);
-        // 2. draw transparent circles
-        var data = this.data;
+        // draw transparent circles
+        var ctx = this.ctx,
+            data = this.data;
 
-        this.circleImg = getCircleImg(data);
-        // 3. colorize according to alpha value
+        getCircleImg(ctx, data);
+        // generate gradient color palette
+        this.gradientColorScale = getGradientColorScale(this.config.color);
+        // colorize according to alpha value
         this.colorize();
       }
     }, {
       key: 'colorize',
       value: function colorize() {
         var gradientColorScale = this.gradientColorScale,
-            circleImg = this.circleImg;
+            ctx = this.ctx;
 
-        var imgData = circleImg.getContext('2d').getImageData(0, 0, 300, 300);
+        var imgData = ctx.getImageData(0, 0, 300, 300);
         var pixelData = imgData.data;
         pixelData.forEach(function (e, i, arr) {
           if (i % 4 !== 3 || e === 0) {
@@ -2529,6 +2523,7 @@
           var color = gradientColorScale(e / 255);
           // FIXME: get rid of regexp
 
+          // TODO: opacity
           var _color$match = color.match(/rgb\((\d+)\,\s?(\d+)\,\s?(\d+)\)/);
 
           var _color$match2 = _slicedToArray(_color$match, 4);

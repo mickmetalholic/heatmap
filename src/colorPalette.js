@@ -1,5 +1,4 @@
-import { scaleLinear } from 'd3-scale/src';
-
+import { scaleLinear } from 'd3-scale';
 
 function getGradientColorScale(colors) {
   const domain = colors.map(color => color.stop);
