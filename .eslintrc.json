@@ -1,0 +1,12 @@
+{
+  "parser": "typescript-eslint-parser",
+  "extends": [
+    "eslint-config-alloy/typescript"
+  ],
+  "plugins": [
+    "typescript"
+  ],
+  "rules": {
+    "indent": ["error", 2]
+  }
+}
