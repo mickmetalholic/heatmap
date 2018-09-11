@@ -1,13 +1,13 @@
 const resolve = require('rollup-plugin-node-resolve');
 const json = require('rollup-plugin-json');
-const version = require('./package.json').version;
+const version = require('../package.json').version;
 
 const banner = `/*
  * heatmap v${version}
  * Released under the MIT License.
  */`;
 
-const input = './es/index.js';
+const input = '../es/index.js';
 const baseOutput = {
   name: 'Heatmap',
   format: 'umd',

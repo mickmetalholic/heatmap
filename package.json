@@ -5,10 +5,10 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "cross-env NODE_ENV=development gulp dev",
-    "build": "cross-env NODE_ENV=production gulp build",
-    "clean": "cross-env NODE_ENV=production gulp clean",
-    "lint": "eslint src --ext js,ts --fix"
+    "dev": "cross-env NODE_ENV=development gulp --gulpfile ./scripts/gulpfile.js dev",
+    "build": "cross-env NODE_ENV=production gulp --gulpfile ./scripts/gulpfile.js build",
+    "clean": "cross-env NODE_ENV=production gulp --gulpfile ./scripts/gulpfile.js clean",
+    "lint": "eslint src scripts --ext js,ts --fix"
   },
   "repository": {
     "type": "git",

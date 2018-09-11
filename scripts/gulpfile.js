@@ -12,16 +12,19 @@ const rename = require('gulp-rename');
 const pump = require('pump');
 
 gulp.task('clean', function() {
-  if (process.env.NODE_ENV === 'development') { return; }
+  if (process.env.NODE_ENV === 'development') { return }
+  const options = {
+    force: true,
+  };
   return del([
-    './dist/**/*',
-    './es/**/*',
-    './definitions/**/*'
-  ]);
+    '../dist/**/*',
+    '../es/**/*',
+    '../definitions/**/*'
+  ], options);
 });
 
 gulp.task('compile', ['clean'], function() {
-  const tsResult = gulp.src('./src/**/*.ts')
+  const tsResult = gulp.src('../src/**/*.ts')
     .pipe(sourcemaps.init({ loadMaps: true }))
     .pipe(tsProject());
 
@@ -34,11 +37,11 @@ gulp.task('compile', ['clean'], function() {
 
   tsResult.js
     .pipe(babel())
-    .pipe(gulp.dest('es')) // es module
+    .pipe(gulp.dest('../es')) // es module
     .pipe(rollup(rollupConfig))
     .pipe(rename('heatmap.js'))
     .pipe(sourcemaps.write('.'))
-    .pipe(gulp.dest('./dist')) // umd
+    .pipe(gulp.dest('../dist')) // umd
     .pipe(connect.reload());
 
   if (process.env.NODE_ENV === 'production') {
@@ -53,18 +56,18 @@ gulp.task('webserver', function() {
 });
 
 gulp.task('watch', function() {
-  gulp.watch('./src/**/*', ['compile']);
-  gulp.watch('./test/**/*', function (event) {
+  gulp.watch('../src/**/*', ['compile']);
+  gulp.watch('../test/**/*', function (event) {
     gulp.src(event.path).pipe(connect.reload());
   });
 });
 
 gulp.task('compress', ['compile'], function(cb) {
   pump([
-    gulp.src('./dist/heatmap.js'),
+    gulp.src('../dist/heatmap.js'),
     uglify(),
     rename({ suffix: '.min' }),
-    gulp.dest('./dist')
+    gulp.dest('../dist')
   ], cb);
 });
 
