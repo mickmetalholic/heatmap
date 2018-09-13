@@ -6,7 +6,5 @@
 - doc
 - ci
 - npm
-- editorconfig
 - commit-msg git-cz
 - release note
-- prettier
