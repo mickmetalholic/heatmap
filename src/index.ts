@@ -27,10 +27,14 @@ export class Heatmap {
     const imgData = ctx.getImageData(0, 0, 300, 300);
     const pixelData = imgData.data;
     pixelData.forEach((e, i, arr) => {
-      if (i % 4 !== 3 || e === 0) { return }
+      if (i % 4 !== 3 || e === 0) {
+        return;
+      }
       const color = gradientColorScale(e / 255);
       // FIXME: get rid of regexp
-      [, arr[i - 3], arr[i - 2], arr[i - 1]] = color.match(/rgb\((\d+)\,\s?(\d+)\,\s?(\d+)\)/);
+      [, arr[i - 3], arr[i - 2], arr[i - 1]] = color.match(
+        /rgb\((\d+)\,\s?(\d+)\,\s?(\d+)\)/
+      );
       // TODO: opacity
     });
     this.ctx.putImageData(imgData, 0, 0);

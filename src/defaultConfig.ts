@@ -19,8 +19,8 @@ const defaultConfig = {
     {
       stop: 0,
       color: '#00F',
-    }
-  ]
+    },
+  ],
 };
 
 export default defaultConfig;
