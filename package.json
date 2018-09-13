@@ -2,7 +2,8 @@
   "name": "heatmap",
   "version": "0.0.0",
   "description": "A heatmap library build with canvas",
-  "main": "index.js",
+  "main": "dist.heatmap.js",
+  "module": "es/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "cross-env NODE_ENV=development gulp --gulpfile ./scripts/gulpfile.js dev",
@@ -15,9 +16,16 @@
     "url": "git+https://github.com/mickmetalholic/heatmap.git"
   },
   "keywords": [
-    "heatmap"
+    "heatmap",
+    "canvas"
   ],
   "author": "yuanshenmick@gmail.com",
+  "maintainers": [
+    {
+      "name": "yuanshenmick",
+      "email": "yuanshenmick@gmail.com"
+    }
+  ],
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/mickmetalholic/heatmap/issues"

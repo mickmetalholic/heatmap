@@ -5,7 +5,6 @@
 - scale
 - doc
 - ci
-- production development cjs es
 - npm
 - editorconfig
 - commit-msg git-cz
