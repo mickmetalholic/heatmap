@@ -1,17 +1,19 @@
-function getCircleImg(ctx, data) {
-  const circleTpl = drawCircle(20);
-  data.forEach(datum => {
+import { Data } from './interface';
+
+function getCircleImg(ctx: CanvasRenderingContext2D, data: Data[]) {
+  const circleTpl: HTMLCanvasElement = drawCircle(20);
+  data.forEach((datum: Data) => {
     ctx.drawImage(circleTpl, datum.x, datum.y);
   });
 }
 
-function drawCircle(r) {
-  const canvas = document.createElement('canvas');
-  const ctx = canvas.getContext('2d');
+function drawCircle(r: number) {
+  const canvas: HTMLCanvasElement = document.createElement('canvas');
+  const ctx: CanvasRenderingContext2D = canvas.getContext('2d');
   canvas.width = 2 * r;
   canvas.height = 2 * r;
 
-  const gradient = ctx.createRadialGradient(r, r, 0, r, r, r);
+  const gradient: CanvasGradient = ctx.createRadialGradient(r, r, 0, r, r, r);
   gradient.addColorStop(0, 'rgba(0, 0, 0, 1)');
   gradient.addColorStop(1, 'rgba(0, 0, 0, 0)');
 

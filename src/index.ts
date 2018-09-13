@@ -1,20 +1,26 @@
 import defaultConfig from './defaultConfig';
 import getGradientColorScale from './colorPalette';
 import getCircleImg from './drawCircles';
+import { Config, Data } from './interface';
 
 export class Heatmap {
-  constructor(config) {
-    this.config = Object.assign({}, config, defaultConfig);
+  config: Config;
+  ctx: CanvasRenderingContext2D;
+  data: Data[];
+  gradientColorScale: (number) => string;
+
+  constructor(config: Config) {
+    this.config = (<any>Object).assign({}, config, defaultConfig);
     this.ctx = config.canvas.getContext('2d');
   }
 
-  setData(data) {
+  setData(data: Data[]) {
     this.data = data;
   }
 
   render() {
     // draw transparent circles
-    const { ctx, data } = this;
+    const { ctx, data }: { ctx: CanvasRenderingContext2D; data: Data[] } = this;
     getCircleImg(ctx, data);
     // generate gradient color palette
     this.gradientColorScale = getGradientColorScale(this.config.color);
@@ -23,18 +29,24 @@ export class Heatmap {
   }
 
   colorize() {
-    const { gradientColorScale, ctx } = this;
-    const imgData = ctx.getImageData(0, 0, 300, 300);
-    const pixelData = imgData.data;
-    pixelData.forEach((e, i, arr) => {
+    const {
+      gradientColorScale,
+      ctx,
+    }: {
+      gradientColorScale: (number) => string;
+      ctx: CanvasRenderingContext2D;
+    } = this;
+    const imgData: ImageData = ctx.getImageData(0, 0, 300, 300);
+    const pixelData: Uint8ClampedArray = imgData.data;
+    pixelData.forEach((e: number, i: number, arr: Uint8ClampedArray) => {
       if (i % 4 !== 3 || e === 0) {
         return;
       }
-      const color = gradientColorScale(e / 255);
+      const color: string = gradientColorScale(e / 255);
       // FIXME: get rid of regexp
-      [, arr[i - 3], arr[i - 2], arr[i - 1]] = color.match(
-        /rgb\((\d+)\,\s?(\d+)\,\s?(\d+)\)/
-      );
+      [, arr[i - 3], arr[i - 2], arr[i - 1]] = color
+        .match(/rgb\((\d+)\,\s?(\d+)\,\s?(\d+)\)/)
+        .map(Number);
       // TODO: opacity
     });
     this.ctx.putImageData(imgData, 0, 0);

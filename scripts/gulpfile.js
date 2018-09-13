@@ -1,7 +1,7 @@
 const gulp = require('gulp');
 const del = require('del');
 const ts = require('gulp-typescript');
-const tsProject = ts.createProject('tsconfig.json');
+const tsProject = ts.createProject('../tsconfig.json');
 const babel = require('gulp-babel');
 const rollup = require('gulp-rollup');
 const rollupConfig = require('./rollup.config');
@@ -44,7 +44,7 @@ gulp.task('compile', ['clean'], function() {
     .pipe(connect.reload());
 
   if (process.env.NODE_ENV === 'production') {
-    tsResult.dts.pipe(gulp.dest('definitions'));
+    tsResult.dts.pipe(gulp.dest('../definitions'));
   }
 });
 

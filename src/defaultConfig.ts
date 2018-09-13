@@ -1,4 +1,6 @@
-const defaultConfig = {
+import { DefaultConfig } from './interface';
+
+const defaultConfig: DefaultConfig = {
   // TODO:
   // data point radius
   radius: 20,
