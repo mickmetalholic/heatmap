@@ -1,8 +1,8 @@
-import { Data } from './interface';
+import { IData } from './interface';
 
-function getCircleImg(ctx: CanvasRenderingContext2D, data: Data[]) {
+function getCircleImg(ctx: CanvasRenderingContext2D, data: IData[]) {
   const circleTpl: HTMLCanvasElement = drawCircle(20);
-  data.forEach((datum: Data) => {
+  data.forEach((datum: IData) => {
     ctx.drawImage(circleTpl, datum.x, datum.y);
   });
 }
