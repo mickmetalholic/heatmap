@@ -9,7 +9,8 @@
     "dev": "cross-env NODE_ENV=development gulp --gulpfile ./scripts/gulpfile.js dev",
     "build": "cross-env NODE_ENV=production gulp --gulpfile ./scripts/gulpfile.js build",
     "clean": "cross-env NODE_ENV=production gulp --gulpfile ./scripts/gulpfile.js clean",
-    "lint": "eslint src scripts --ext js,ts --fix"
+    "lint": "eslint src scripts --ext js,ts --fix",
+    "commit": "git-cz"
   },
   "repository": {
     "type": "git",
@@ -36,10 +37,12 @@
     "@babel/core": "^7.0.0",
     "@babel/plugin-transform-modules-commonjs": "^7.0.0",
     "@babel/preset-env": "^7.0.0",
-    "@types/d3-scale": "^2.0.1",
-    "@types/ramda": "^0.25.37",
+    "@commitlint/cli": "^7.1.2",
+    "@commitlint/config-conventional": "^7.1.2",
     "babel-eslint": "^9.0.0",
+    "commitizen": "^2.10.1",
     "cross-env": "^5.2.0",
+    "cz-conventional-changelog": "^2.1.0",
     "del": "^3.0.0",
     "eslint": "^5.5.0",
     "eslint-config-alloy": "^1.4.2",
@@ -54,6 +57,7 @@
     "gulp-sourcemaps": "^2.6.4",
     "gulp-typescript": "^5.0.0-alpha.3",
     "gulp-uglify": "^3.0.1",
+    "husky": "^0.14.3",
     "prettier": "1.14.2",
     "pump": "^3.0.0",
     "rollup": "^0.65.2",
@@ -63,7 +67,14 @@
     "typescript-eslint-parser": "^18.0.0"
   },
   "dependencies": {
+    "@types/d3-scale": "^2.0.1",
+    "@types/ramda": "^0.25.37",
     "d3-scale": "^2.1.2",
     "ramda": "^0.25.0"
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
   }
 }
