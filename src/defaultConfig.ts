@@ -1,28 +1,28 @@
-import { DefaultConfig } from './interface';
+import { IDefaultConfig } from './interface';
 
-const defaultConfig: DefaultConfig = {
+const defaultConfig: IDefaultConfig = {
   // TODO:
-  // data point radius
-  radius: 20,
   // color
   color: [
     {
-      stop: 1,
       color: '#F00',
+      stop: 1,
     },
     {
-      stop: 0.75,
       color: 'yellow',
+      stop: 0.75,
     },
     {
-      stop: 0.55,
       color: '#0F0',
+      stop: 0.55,
     },
     {
-      stop: 0,
       color: '#00F',
+      stop: 0,
     },
   ],
+  // data point radius
+  radius: 20,
 };
 
 export default defaultConfig;

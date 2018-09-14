@@ -1,8 +1,8 @@
 import { ScaleLinear, scaleLinear } from 'd3-scale';
-import { GradientColor } from './interface';
+import { IGradientColor } from './interface';
 
 function getGradientColorScale(
-  colors: GradientColor[]
+  colors: IGradientColor[]
 ): ScaleLinear<string, string> {
   const domain: number[] = colors.map(color => color.stop);
   const range: string[] = colors.map(color => color.color);

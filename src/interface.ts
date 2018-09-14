@@ -1,18 +1,18 @@
-export interface GradientColor {
+export interface IGradientColor {
   stop: number;
   color: string;
 }
 
-export interface Data {
+export interface IData {
   x: number;
   y: number;
 }
 
-export interface DefaultConfig {
+export interface IDefaultConfig {
   radius?: number;
-  color?: GradientColor[];
+  color?: IGradientColor[];
 }
 
-export interface Config extends DefaultConfig {
+export interface IConfig extends IDefaultConfig {
   canvas: HTMLCanvasElement;
 }

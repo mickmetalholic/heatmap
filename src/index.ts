@@ -1,26 +1,29 @@
-import defaultConfig from './defaultConfig';
 import getGradientColorScale from './colorPalette';
+import defaultConfig from './defaultConfig';
 import getCircleImg from './drawCircles';
-import { Config, Data } from './interface';
+import { IConfig, IData } from './interface';
 
 export class Heatmap {
-  config: Config;
-  ctx: CanvasRenderingContext2D;
-  data: Data[];
-  gradientColorScale: (number) => string;
+  public config: IConfig;
+  public ctx: CanvasRenderingContext2D;
+  public data: IData[];
+  public gradientColorScale: (alpha: number) => string;
 
-  constructor(config: Config) {
-    this.config = (<any>Object).assign({}, config, defaultConfig);
+  constructor(config: IConfig) {
+    this.config = (Object as any).assign({}, config, defaultConfig);
     this.ctx = config.canvas.getContext('2d');
   }
 
-  setData(data: Data[]) {
+  public setData(data: IData[]) {
     this.data = data;
   }
 
-  render() {
+  public render() {
     // draw transparent circles
-    const { ctx, data }: { ctx: CanvasRenderingContext2D; data: Data[] } = this;
+    const {
+      ctx,
+      data,
+    }: { ctx: CanvasRenderingContext2D; data: IData[] } = this;
     getCircleImg(ctx, data);
     // generate gradient color palette
     this.gradientColorScale = getGradientColorScale(this.config.color);
@@ -28,12 +31,12 @@ export class Heatmap {
     this.colorize();
   }
 
-  colorize() {
+  public colorize() {
     const {
       gradientColorScale,
       ctx,
     }: {
-      gradientColorScale: (number) => string;
+      gradientColorScale: (alpha: number) => string;
       ctx: CanvasRenderingContext2D;
     } = this;
     const imgData: ImageData = ctx.getImageData(0, 0, 300, 300);
