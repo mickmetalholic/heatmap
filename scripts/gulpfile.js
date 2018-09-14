@@ -50,6 +50,7 @@ gulp.task('compile', ['clean'], function() {
 
 gulp.task('webserver', function() {
   connect.server({
+    root: '../',
     livereload: true,
   });
 });

@@ -7,8 +7,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "cross-env NODE_ENV=development gulp --gulpfile ./scripts/gulpfile.js dev",
+    "clean": "git checkout -- dist es definitions",
     "build": "cross-env NODE_ENV=production gulp --gulpfile ./scripts/gulpfile.js build",
-    "clean": "cross-env NODE_ENV=production gulp --gulpfile ./scripts/gulpfile.js clean",
     "lint": "tslint --fix --project tsconfig.json --config tslint.json",
     "prettier": "prettier --write {src,scripts}/**/*",
     "commit": "git-cz",
