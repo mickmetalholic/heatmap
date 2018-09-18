@@ -8,12 +8,12 @@
     "test": "jest",
     "dev": "cross-env NODE_ENV=development gulp --gulpfile ./scripts/gulpfile.js dev",
     "clean": "git checkout -- dist es definitions",
-    "build": "cross-env NODE_ENV=production gulp --gulpfile ./scripts/gulpfile.js build",
+    "commit": "git-cz",
     "lint": "tslint --fix --project tsconfig.json --config tslint.json",
     "prettier": "prettier --write {src,scripts}/**/*",
     "ci": "npm run lint && npm run test",
-    "commit": "git-cz",
-    "release": "standard-version -a"
+    "build": "cross-env NODE_ENV=production gulp --gulpfile ./scripts/gulpfile.js build",
+    "release": "npm run ci && standard-version -a"
   },
   "repository": {
     "type": "git",
