@@ -5,7 +5,7 @@
   "main": "dist.heatmap.js",
   "module": "es/index.js",
   "scripts": {
-    "test": "jest",
+    "test": "jest --coverage",
     "dev": "cross-env NODE_ENV=development gulp --gulpfile ./scripts/gulpfile.js dev",
     "clean": "git checkout -- dist es definitions",
     "commit": "git-cz",
