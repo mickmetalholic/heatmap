@@ -1,10 +1,9 @@
 - interactions
 - animations
-- test: unit demo coverage
-- benchmark
+- ssr
 - scale
+- buffer webassembly
+- test: unit demo benchmark
 - doc
-- ci
 - npm
-- commit-msg git-cz
-- release note
+- github
